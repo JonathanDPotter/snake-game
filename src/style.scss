@@ -1,0 +1,101 @@
+$blue: hsl(200, 100%, 50%);
+$yellow: hsl(50, 100%, 50%);
+
+*,
+*::after,
+*::before {
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  overflow: hidden;
+  font-family: monospace;
+}
+
+#game-board {
+  background-color: #ccc;
+  width: 100vmin;
+  height: 100vmin;
+  display: grid;
+  grid-template-rows: repeat(21, 1fr);
+  grid-template-columns: repeat(21, 1fr);
+}
+
+.snake {
+  background-color: $blue;
+  border: 0.25vmin solid #000;
+}
+
+.food {
+  background-color: $yellow;
+  border: 0.25vmin solid #000;
+}
+
+@mixin title {
+  margin: 10vmin 0;
+  font-size: 10vmin;
+  color: $yellow;
+}
+
+@mixin subtitle {
+  font-size: 3vmin;
+  color: $blue;
+  animation: 2s ease infinite pulse;
+}
+
+@mixin menu-over {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100vmin;
+  width: 100vmin;
+  display: none;
+  text-align: center;
+}
+
+.game-over {
+  @include menu-over;
+  background-color: transparentize(#555, .3);
+
+  h2 {
+    @include title;
+  }
+
+  span {
+    @include subtitle;
+  }
+}
+
+.menu {
+  @include menu-over;
+  background-color: #555;
+
+  h1 {
+    @include title;
+  }
+
+  span {
+    @include subtitle;
+  }
+}
+
+.show {
+  display: block;
+}
+
+@keyframes pulse {
+  0% {
+    color: $blue;
+  }
+  50% {
+    color: lighten($blue, 40%);
+  }
+}
